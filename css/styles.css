@@ -1,0 +1,62 @@
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+	margin: 80px auto 0 auto;
+	max-width: 800px;
+	height: 500px;
+}
+
+.title {
+	height: 50px;
+	width: 100%;
+}
+
+.wrapper h1, .wrapper h3 {
+	text-align: center;
+	font-family: 'Fuse';
+}
+
+.wrapper h1 {
+	font-size: 2.8em;
+	letter-spacing: 8px;
+}
+
+.wrapper h3 {
+	font-size: 1.5em;
+	letter-spacing: 4px;
+}
+
+.tools {
+	float: left;
+	height: 80%;
+	width: 35%;
+	background-color: cyan;
+	margin-left: 10px;;
+}
+
+.grid {
+	float: right;
+	margin-right: 10px;
+	width: 60%;
+	height: 80%;
+	background-color: white;
+	border-width: 1px;
+	border-style: solid;
+	border-color: blue;
+	overflow: hidden;
+}
+
+.square {
+	display: inline-block;
+	float: left;
+}
+
+@font-face {
+    font-family: "Fuse";
+    src: url('fonts/FUSENORM.TTF') format('truetype');
+}
