@@ -1,35 +1,53 @@
 
-var $square = "<div class='square'></div>";
+var $squares = "<div class='squares'></div>";
+var rainbow = true;
+var color = "black";
 
 $(function(){
-	var $grid = $('.grid');
 	var gridSize = parseInt($(':input[type="number"]').val());
-	console.log(gridSize);
+	
 	addSquares(Math.pow(gridSize, 2));
 	setSquareSize(gridSize);
 	
+	/*--EVENTS--*/
 	$('.clear').click(function(){
-		$('.square').css("background-color", "white");
+		$('.squares').css("background-color", "white");
 	});
 	
-	$('.square').mouseenter(function(){
-		console.log("Mouse enters");
-		$(this).css("background-color", '#'+Math.random().toString(16).slice(-6));
-	});
-	
-	$('#size_selector').on("change paste keyup", function(){
+	$('#size').on("change paste keyup", function(){
 		var newSize = parseInt($(this).val());
+		if (newSize > 100) {
+			newSize = 100;
+			$(this).text('100');
+		}
 		resizeGrid(newSize, gridSize);
 		gridSize = newSize;
-		console.log(gridSize);
+	});
+	
+	
+	$('.colors').click(function(){
+		color = $(this).css("background-color");
+		console.log(color);
+		if (color === "rgba(0, 0, 0, 0)"){
+			rainbow = true;
+		} else {
+			rainbow = false;
+		}
 	});
 	
 });
 
-$(document).on('mouseenter', '.square', function(){
-	console.log("Mouse enters");
-	$(this).css("background-color", '#'+Math.random().toString(16).slice(-6));
+$(document).on('mouseenter', '.squares', function(){
+	console.log(color);
+	if(rainbow){
+		$(this).css("background-color", '#' + Math.random().toString(16).slice(-6));
+	} else {
+		$(this).css("background-color", color);
+	}
+	
 });
+
+
 
 /**
 Fills the grid with divs. The number of divs is the the gridSize pow 2 (default = 10).
@@ -37,15 +55,21 @@ Fills the grid with divs. The number of divs is the the gridSize pow 2 (default 
 function addSquares(numberOfSquares){
 	//append new squares.
 	for (i=0; i < numberOfSquares; i++){
-		$('.grid').append($square);
-		console.log("grid: ");
+		$('.grid').append($squares);
 	}
 }
 
 function resizeGrid(newGridSize, gridSize) {
 	setSquareSize(newGridSize)
-	var squaresToAdd = Math.pow(newGridSize, 2) - Math.pow(gridSize, 2);
-	addSquares(squaresToAdd);
+	if(newGridSize > gridSize){
+		var numberOfSquaresToHave = Math.pow(newGridSize,2);
+		var existingNumberOfSquares = $('.squares').length;
+		//check if the number of squares to add already exist.
+		if( numberOfSquaresToHave > existingNumberOfSquares ){
+			var squaresToAdd = numberOfSquaresToHave - existingNumberOfSquares;
+			addSquares(squaresToAdd);
+		}
+	}	
 	setSquareSize(newGridSize);
 }
 
@@ -53,5 +77,5 @@ function setSquareSize(gridSize){
 	//square height and width determined by the grid's size.
 	var squareHeight = $('.grid').height()/gridSize.toString();
 	var squareWidth = $('.grid').width()/gridSize.toString();
-	$('.square').css({height: squareHeight + "px", width: squareWidth + "px"});
+	$('.squares').css({height: squareHeight + "px", width: squareWidth + "px"});
 }
