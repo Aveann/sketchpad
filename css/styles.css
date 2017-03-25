@@ -8,7 +8,7 @@
 .wrapper {
 	margin: 80px auto 0 auto;
 	max-width: 800px;
-	height: 500px;
+	height: 630px;
 }
 
 .title {
@@ -96,7 +96,6 @@ background-size: 300% 1800%;
 .clear:hover {
 	background-color: rgba(59, 255, 162, 0.46);
 	cursor: pointer;
-	
 }
 
 .clear span {
@@ -126,6 +125,7 @@ background-size: 300% 1800%;
 	display: inline-block;
 	float: left;
 }
+
 
 @font-face {
     font-family: "Fuse";

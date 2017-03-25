@@ -1,19 +1,23 @@
 
-var $squares = "<div class='squares'></div>";
-var rainbow = true;
-var color = "black";
+var $squares = "<div class='squares'></div>"; //the square to add
+var color = ""; //the color of the squares
+var rainbow = true; //if rainbow is true, squares are colored with random colors.
 
 $(function(){
+	//the size of the grid is determined by the value of the input (default = 10).
 	var gridSize = parseInt($(':input[type="number"]').val());
 	
-	addSquares(Math.pow(gridSize, 2));
-	setSquareSize(gridSize);
+	addSquares(Math.pow(gridSize, 2)); //fill grid with squares
+	setSquareSize(gridSize); //resize the squares.
 	
 	/*--EVENTS--*/
+	
+	//clear button clicked
 	$('.clear').click(function(){
 		$('.squares').css("background-color", "white");
 	});
-	
+
+	//size changed
 	$('#size').on("change paste keyup", function(){
 		var newSize = parseInt($(this).val());
 		if (newSize > 100) {
@@ -24,10 +28,12 @@ $(function(){
 		gridSize = newSize;
 	});
 	
-	
+	//color clicked
 	$('.colors').click(function(){
 		color = $(this).css("background-color");
 		console.log(color);
+		//if the "rainbow" color is selected, the background-color is "rgba(0, 0, 0, 0)" since
+		//it is the default value.
 		if (color === "rgba(0, 0, 0, 0)"){
 			rainbow = true;
 		} else {
@@ -35,6 +41,7 @@ $(function(){
 		}
 	});
 	
+
 });
 
 $(document).on('mouseenter', '.squares', function(){
@@ -47,10 +54,8 @@ $(document).on('mouseenter', '.squares', function(){
 	
 });
 
-
-
 /**
-Fills the grid with divs. The number of divs is the the gridSize pow 2 (default = 10).
+Fills the grid with squares. The number of squares is the grid ^2.
 */
 function addSquares(numberOfSquares){
 	//append new squares.
@@ -59,8 +64,13 @@ function addSquares(numberOfSquares){
 	}
 }
 
+/**
+Resize the grid with a newGridSize from the input and add squares if the size
+is larger than the current size.
+If a size has already been entered in the past and squares have already been added,
+the function just resizes the grid. This makes things faster.
+*/
 function resizeGrid(newGridSize, gridSize) {
-	setSquareSize(newGridSize)
 	if(newGridSize > gridSize){
 		var numberOfSquaresToHave = Math.pow(newGridSize,2);
 		var existingNumberOfSquares = $('.squares').length;
@@ -73,6 +83,9 @@ function resizeGrid(newGridSize, gridSize) {
 	setSquareSize(newGridSize);
 }
 
+/**
+Sets the height and width of squares according to the grid Size.
+*/
 function setSquareSize(gridSize){
 	//square height and width determined by the grid's size.
 	var squareHeight = $('.grid').height()/gridSize.toString();
